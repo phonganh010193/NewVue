@@ -55,9 +55,9 @@ export default {
         height: 50px;
         border-radius: 25px;
         border: 1px solid #2d8356;
-        background-color: white;
         text-align: center;
-        line-height: 50px;
+        line-height: 40px;
+        background-color: #2d8356;
     }
 
     .info-cart p {
@@ -68,4 +68,6 @@ export default {
     .info-cart:hover {
         cursor: pointer;
     }
+
+    
 </style>

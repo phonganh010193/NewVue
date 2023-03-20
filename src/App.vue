@@ -1,24 +1,48 @@
 <template>
-  <TopBar />
+  <TopBar v-if="isShowTopbar" />
   <div class="main-container container d-flex flex-row">
-      <div class="container m-0 p-0 main-info">
-          <RouterView />
+      <SideBar v-if="isShowSidebar"/>
+      <div class="container main-info">
+        <RouterView />
       </div>
   </div>
 </template>
 <script>
 import TopBar from './components/topbar/TopBar.vue';
+import SideBar from './components/sidebar/SideBar.vue';
 export default {
   components: {
       TopBar,
+      SideBar
   },
+  data() {
+    return {
+      isShowSidebar: false,
+      isShowTopbar: false
+    }
+  },
+  watch: {
+    '$route' (to, from) {
+      const url = window.location.href;
+      if (url.slice(21) === '/' || url.includes("/perfume/")) {
+        this.isShowTopbar = true;
+        this.isShowSidebar = true;
+      } else if (url.includes("/signin") || url.includes("/signup") || url.includes("/forgotpassword")) {
+        this.isShowSidebar = false;
+        this.isShowTopbar = false;
+      } else {
+        this.isShowTopbar = true;
+        this.isShowSidebar = false;
+      }
+    }
+  }
   
   
 }
 </script>
 <style>
   .main-info {
-    width: 100%;
+    width: 70%;
   }
   
   .main-container {

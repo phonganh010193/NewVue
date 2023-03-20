@@ -15,9 +15,10 @@ const routes = [
     component: <CartView />
   },
   {
-    path: '/perfume/1',
+    path: '/perfume/:id',
     name: 'perfume',
-    component: () => import('../views/perfume/ProductView.vue')
+    component: () => import('../views/perfume/ProductView.vue'),
+    params: true
   },
   {
     path: '/signin',

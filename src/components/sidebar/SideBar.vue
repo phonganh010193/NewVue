@@ -7,43 +7,36 @@
             <h5>Danh Mục Sản Phẩm</h5>
         </div>
         <div className="sidebar-content">
-            <router-link to="/perfume/1">Nước hoa nam</router-link>
-            <router-link to="/perfume-girl">Nước hoa nữ</router-link>
-            <router-link to="#">Nước hoa nữ cao cấp trên 3 triệu</router-link>
-            <router-link to="#">Nước hoa nữ dưới 1 triệu</router-link>
-            <router-link to="#">Nước hoa nam cao cấp trên 3 triệu</router-link>
-            <router-link to="#">Nước hoa nam dưới 1 triệu</router-link>
-            <router-link to="#">LOUIS VUITION</router-link>
-            <router-link to="#">CHANEL</router-link>
-            <router-link to="#">KILIAN</router-link>
-            <router-link to="#">DIOR</router-link>
-            <router-link to="#">JO MALONE</router-link>
-            <router-link to="#">CREED</router-link>
-            <router-link to="#">DOLCE GABBALA</router-link>
-            <router-link to="#">HERMES</router-link>
-            <router-link to="#">GUICCI</router-link>
-            <router-link to="#">LANCOME</router-link>
-            <router-link to="#">Mỹ Phẩm</router-link>
-            <router-link to="#">NARCISO RODRIGUEZ</router-link>
-            <router-link to="#">VESARCE</router-link>
-            <router-link to="#">JEAN PAUL GAULTIER</router-link>
-            <router-link to="#">TOM FORD</router-link>
-            <router-link to="#">CAROLINA HERRENA</router-link>
-            <router-link to="#">HUGO BOSS</router-link>
-            <router-link to="#">CLIVE CHRISTIAN</router-link>
-            <router-link to="#">JEAN PAUL GAULTIER</router-link>
-            <router-link to="#">JEAN PAUL GAULTIER</router-link>
+            <router-link v-for="(item, index) in category" :key="item.id" :to="{ name: 'perfume', params: { id: item.id }}">{{ item.categoryName }}</router-link>
         </div>
     </div>
 </template>
 <script>
+import { get, push, ref, remove, update } from 'firebase/database';
+import { database } from "../../firebase";
 export default {
+    data() {
+        return {
+            category: null
+        }
+    },
+
+    mounted() {
+        get(ref(database, 'Category')).then((snapshot) => {
+        if (snapshot.exists()) {
+            console.log(Object.values(snapshot.val()))
+            this.category = Object.values(snapshot.val());
+        }})
+        .catch((error) => {
+            console.error(error);
+        });
+    },
     
 }
 </script>
 <style>
     .sidebar-container {
-        width: 25%;
+        width: 30%;
     }
     .sidebar-title {
         display: flex;
